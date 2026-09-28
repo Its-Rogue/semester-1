@@ -1,4 +1,4 @@
-# About Connor
+# About Rogue
 
 [My A level NEA](https://github.com/Its-Rogue/Graph_Traversal_Simulation) which includes a lot more markdown interaction
 
