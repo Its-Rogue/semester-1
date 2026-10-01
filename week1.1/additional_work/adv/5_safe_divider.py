@@ -12,3 +12,26 @@ denominator_input = input("Enter the denominator: ")
 # TODO: convert the values to integers and perform the division
 # TODO: print clear feedback when something goes wrong
 # TODO: only show the answer when the division succeeds
+
+
+result = 0
+
+try:
+    numerator_input = int(numerator_input)
+except:
+    print("Invalid numerator input")
+    exit()
+
+try:
+    denominator_input = int(denominator_input)
+except:
+    print("Invalid denominator input")
+    exit()
+
+try:
+    result = numerator_input / denominator_input
+except:
+    print("Invalid result")
+    exit()
+
+print(f"The result of the divison of {numerator_input}/{denominator_input} is {result}")

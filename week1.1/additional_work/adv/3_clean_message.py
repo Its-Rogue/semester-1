@@ -11,3 +11,7 @@ raw_message = input("Type a message to tidy: ")
 # Example methods: strip, title, replace, lower, upper
 # TODO: display the original and cleaned messages
 # Extension: display the character counts for each version
+
+cleaned_message = raw_message.strip().lower().replace("@","a").title()
+
+print(cleaned_message)

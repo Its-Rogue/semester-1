@@ -11,3 +11,20 @@ minutes_remaining_input = input("Minutes remaining until the deadline: ")
 # TODO: calculate whole days, leftover hours, and remaining minutes
 # TODO: print the breakdown using f-strings
 # Extension: detect negative values and print a warning instead
+
+try:
+    minutes_remaining_input = int(minutes_remaining_input)
+except:
+    print("Invalid input")
+    exit()
+
+if (minutes_remaining_input < 0):
+    print("The deadline has already passed")
+    exit()    
+
+days = minutes_remaining_input // 1440
+minutes_remaining_input = minutes_remaining_input % 1440
+hours = minutes_remaining_input // 60
+minutes = minutes_remaining_input % 60
+
+print(f"There are {days} days, {hours} hours and {minutes} minutes until the deadline.")
