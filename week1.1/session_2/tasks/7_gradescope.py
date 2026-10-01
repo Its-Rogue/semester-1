@@ -21,7 +21,8 @@ def get_number():
     try:
         num = int(num)
     except:
-        exit("That is not a number")
+        print("That is not a number")
+        exit()
 
     return num
 
