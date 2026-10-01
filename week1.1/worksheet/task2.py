@@ -15,7 +15,7 @@ valid = False
 while (valid != True):
        value = input("Enter an amount you want to save every month: ")
        try:
-            value = float(value)
+            value = int(value)
             valid = True
        except:
             print("Invalid amount")
