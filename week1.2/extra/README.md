@@ -14,8 +14,8 @@ directory, to keep it separate from the other tasks.
 * Given a list `x`, what is the difference between these two lines of code?
 
   ```python
-  x.sort()
-  sorted(x)
+  x.sort() # sorts a list
+  sorted(x) # returns T/F if a list is sorted or not
   ```
 
 * Investigate the following types provided by the `collections` module in
