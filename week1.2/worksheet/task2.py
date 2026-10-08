@@ -4,7 +4,8 @@ import util, sys
 numbers = util.read_numbers()
 
 if len(numbers) == 0:
-    sys.exit("no numbers provided")
+
+    sys.exit("Error: no numbers provided")
 
 minimum = min(numbers)
 maximum = max(numbers)
@@ -15,7 +16,7 @@ numbers.sort()
 length = len(numbers)
 
 if length % 2 == 0:
-    median = (numbers[length//2] + numbers[length//2 + 1]) / 2
+    median = (numbers[length//2 - 1] + numbers[length//2]) / 2
 else:
     median = numbers[length//2]
 
