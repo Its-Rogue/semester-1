@@ -15,3 +15,14 @@
 # story.txt - 290
 # story2.txt - 326
 # glasses.txt - 210
+
+
+file_name = input("Enter the file name: ")
+
+words = []
+
+with open(file_name, 'r') as f:
+    for line in f:
+        words.extend(line.split())
+
+print(len(words))

@@ -6,6 +6,14 @@ L = int(input("Length of sequence: ")) # this should be your only input
 # Your code for the Recaman Sequence
 # You should store the sequence in an appropriate data structure named 'sequence'
 
+sequence = [0]
+
+for n in range(1, L):
+    current = sequence[-1] - n
+    if (current > 0 and current not in sequence):
+        sequence.append(current)
+    else:
+        sequence.append(sequence[-1] + n)
 
 # You may wish to use further output for testing purposes while you develop your code
 

@@ -9,3 +9,11 @@ print(not_fish)
 
 # write the equivalent for loop to create the not_fish list from animals
 # print your result to verify it is the same
+
+not_fish2 = []
+
+for item in animals:
+    if item != 'goldfish':
+        not_fish2.append(item)
+
+print(not_fish2)
