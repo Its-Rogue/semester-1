@@ -34,6 +34,21 @@ def income_tax_calculator(annual_income):
         e.g round(tax, 1) 0.0 if annual_income is not a positive integer.
     """
 
+    if annual_income <= 0:
+        return 0.0
+
+    bands = [
+        (12570, 50270, 0.20),
+        (50270, 125140, 0.40),
+        (125140, float("inf"), 0.45),
+    ]
+
+    tax = 0.0
+    for lower, upper, rate in bands:
+        taxable_in_band = max(0, min(annual_income, upper) - lower)
+        tax += taxable_in_band * rate
+
+    return round(tax, 1)
 
 # Check if the following lines produce the correct output
 print(income_tax_calculator(12000))     # 0.0
