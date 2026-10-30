@@ -14,14 +14,26 @@ class Point:
         """
         Creates a Point, given x & y coordinates.
         """
-        self.x = x
-        self.y = y
+
+        if isinstance(x, int) or isinstance(x, float):
+            self.x = x
+        else:
+            raise TypeError("X must be an int or a float")
+
+        if isinstance(y, int) or isinstance(y, float):
+            self.y = y
+        else:
+            raise TypeError("Y must be an int or a float")
 
     def distance(self):
         """
         Returns distance of this Point from the origin.
         """
-        return math.hypot(self.x, self.y)
+
+        if isinstance(self, Point):
+            return math.hypot(self.x, self.y)
+        else:
+            raise TypeError("Input must be a Point object")
 
     def distance_to(self, p):
         """

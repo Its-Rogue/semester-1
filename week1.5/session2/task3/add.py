@@ -2,3 +2,12 @@
 
 # Write a program here that creates two Money objects, prints them,
 # then adds them together and prints their sum
+
+from money import Money
+
+m1 = Money(1,5)
+m2 = Money(2,5)
+
+print(m1.__str__())
+m3 = m1.__add__(m2)
+print(m3.__str__())
