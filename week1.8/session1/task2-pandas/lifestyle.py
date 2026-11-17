@@ -1,6 +1,7 @@
 import pandas
+from pathlib import Path
 
-data = pandas.read_csv("lifestyle_data.csv")
+data = pandas.read_csv(Path(__file__).with_name("lifestyle_data.csv"))
 
 # What data type is `data` as output from the `read_csv()` method?
 
@@ -9,17 +10,27 @@ data = pandas.read_csv("lifestyle_data.csv")
 # - Use the pandas documentation to explore functions that you can use.
 # - Leave your code under the comments.
 
-# Find the total number of students
+print("Data type:", type(data).__name__)
 
-# Find the mean average GPA of the students
+print("Total number of students:", len(data))
 
-# Find the standard deviation of how much sleep students get per day
+print("Mean GPA:", data["GPA"].mean())
 
-# Find the maximum amount of study hours per day
+print("Sleep standard deviation:",
+      data["Sleep_Hours_Per_Day"].std())
 
-# Sort the students by social hours per day ascending (lowest -> highest)
+print("Maximum study hours:",
+      data["Study_Hours_Per_Day"].max())
 
-# Add a column 'Total_hours' which adds together all the Hours_Per_Day columns into one
+print("Lowest social hours first:")
+print(data.sort_values("Social_Hours_Per_Day", ascending=True).head())
 
-# Filter all students with a 'high' stress level, and all the students with a 'low' stress level.
-# Can you work out whether having a higher stress level leads to a higher GPA?
+hours_columns = [column for column in data.columns
+                 if column.endswith("_Hours_Per_Day")]
+data["Total_hours"] = data[hours_columns].sum(axis=1)
+print("Total hours column:", data["Total_hours"].head().tolist())
+
+high_stress = data[data["Stress_Level"] == "High"]
+low_stress = data[data["Stress_Level"] == "Low"]
+print("High-stress mean GPA:", high_stress["GPA"].mean())
+print("Low-stress mean GPA:", low_stress["GPA"].mean())

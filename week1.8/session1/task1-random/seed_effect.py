@@ -2,6 +2,8 @@
 
 import random
 
+# Seeding makes the pseudo-random sequence repeatable. Without a seed,
+# Python uses system entropy and generally produces different results.
 random.seed(10)
 
 num1 = random.randint(1, 100)

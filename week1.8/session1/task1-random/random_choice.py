@@ -1,11 +1,16 @@
 import random
+from pathlib import Path
 
-# Read names from a file
+names_file = Path(__file__).with_name("names.txt")
+with names_file.open() as infile:
+    names = [line.strip() for line in infile if line.strip()]
 
-with open("names.txt") as infile:
-    names = [ line.strip() for line in infile ]
+count = int(input("How many names do you want to pick? "))
+if count < 0:
+    raise ValueError("number of names must not be negative")
+if count > len(names):
+    raise ValueError("not enough names in the file")
 
-# Ask user to enter a number, then randomly choose that many names
-# from the list, avoiding any duplicate choices
-
-# Display the chosen names, one per line
+chosen = random.sample(names, count)
+for name in chosen:
+    print(name)

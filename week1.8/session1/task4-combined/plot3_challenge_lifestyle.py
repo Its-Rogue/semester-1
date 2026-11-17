@@ -1,39 +1,58 @@
-'''
-This is a difficult activity which will involve some relatively challenging filtering/sorting of data
-You will want to have the docs or a guide on using matplotlib/pandas available, it is not expected that you do this completely independently.
-chatGPT is very good when debugging Pandas, as it decodes error messages into more readable explanations- so if you are struggling to understand what 
-you have done wrong I recommend pasting error messages into it!
-
-All the basic program code has been included, you should be able to simply write the code to filter the data into an appropriate dataframe and then
-plot and show the graphs.
-'''
+from pathlib import Path
 
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 def average_bar_chart(data):
-    '''
-    Complete this code to produce a bar chart of the total of each 'hours per day' column
-    '''
-    pass
+    columns = [column for column in data.columns if column.endswith("_Hours_Per_Day")]
+    averages = data[columns].mean()
+    averages.plot(kind="bar")
+    plt.title("Average Hours per Day")
+    plt.ylabel("Hours")
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+    plt.show()
+
 
 def hours_histogram(data, column_name):
-    '''
-    Complete this code so that it can display a histogram of any given 'hours per day' column
-    '''
-    pass
+    if column_name not in data:
+        print(f"Unknown column: {column_name}")
+        return
+    data[column_name].hist(bins=15)
+    plt.title(column_name)
+    plt.xlabel("Hours")
+    plt.ylabel("Number of Students")
+    plt.tight_layout()
+    plt.show()
+
 
 def hours_pie_chart(data, student_id):
-    '''
-    Complete this code so that it produces a pie chart of any given student's hours per day - this should be selected by student ID (the first column)
-    '''
-    pass
+    if student_id < 0 or student_id >= len(data):
+        print("Student ID out of range")
+        return
+    student = data.iloc[student_id]
+    columns = [column for column in data.columns if column.endswith("_Hours_Per_Day")]
+    student[columns].plot(kind="pie", autopct="%1.1f%%")
+    plt.title(f"Hours breakdown for Student {student_id}")
+    plt.ylabel("")
+    plt.tight_layout()
+    plt.show()
+
 
 def total_hours_per_stress_level(data, stress_level):
-    '''
-    Complete this code to create a stacked bar chart showing a breakdown of the total hours worked by students, grouped by their reported stress level.
-    '''
-    pass
+    filtered = data[data["Stress_Level"].str.lower() == stress_level.lower()]
+    if filtered.empty:
+        print(f"No students have stress level {stress_level}")
+        return
+    columns = [column for column in filtered.columns if column.endswith("_Hours_Per_Day")]
+    totals = filtered[columns].sum()
+    totals.plot(kind="bar")
+    plt.title(f"Total Hours for {stress_level.title()} Stress")
+    plt.ylabel("Total Hours")
+    plt.tight_layout()
+    plt.show()
+
 
 def display_menu():
     print("Student Lifestyle Data Analysis")
@@ -42,30 +61,32 @@ def display_menu():
     print("3 - view per-student breakdown")
     print("4 - view per stress level breakdown")
     print("Q - quit")
-    choice = 0
-    while choice not in ["1","2","3","4","Q"]:
+    choice = ""
+    while choice not in ["1", "2", "3", "4", "Q"]:
         choice = input("Select option: ").upper()
     return choice
 
 
-## main program:
+data = pd.read_csv(Path(__file__).with_name("lifestyle_data.csv"))
 
-data = pd.read_csv("lifestyle_data.csv")
+def main():
+    while True:
+        choice = display_menu()
+        match choice:
+            case "Q":
+                break
+            case "1":
+                average_bar_chart(data)
+            case "2":
+                col = input("Enter Hours Per column to analyse: ")
+                hours_histogram(data, col)
+            case "3":
+                stid = int(input("Enter student ID: "))
+                hours_pie_chart(data, stid)
+            case "4":
+                stress_level = input("Enter stress level: ").title()
+                total_hours_per_stress_level(data, stress_level)
 
-# Note - when you run this in Interactive mode, the 'input' will be through a pop up instead of the terminal.
-while True:
-    choice = display_menu()
-    match choice:
-        case "Q":
-            break
-        case "1":
-            average_bar_chart(data)
-        case "2":
-            col = input("Enter Hours Per column to analyse: ")
-            hours_histogram(data, col)
-        case "3":
-            stid = int(input("Enter student ID: "))
-            hours_pie_chart(data, stid)
-        case "4":
-            stress_level = input("Enter stress level: ").title()
-            total_hours_per_stress_level(data, stress_level)
+
+if __name__ == "__main__":
+    main()

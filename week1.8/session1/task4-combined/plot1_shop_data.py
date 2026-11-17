@@ -8,9 +8,10 @@ This first file is a worked example of creating some graphs - there are activiti
 
 import pandas as pd
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 # reading data & converting date into a datetime
-shop_data = pd.read_csv("shop_sales_data_one_month.csv")
+shop_data = pd.read_csv(Path(__file__).with_name("shop_sales_data_one_month.csv"))
 shop_data['Date'] = pd.to_datetime(shop_data['Date'])
 
 # Step 1: check that the data looks sensible - you should do this often!:
@@ -61,7 +62,15 @@ plt.show()
 
 # To practice, here are some tasks to use - remember, the original data is named shop_data
 
-# Create a pie chart to show sales per product
+sales_per_product = shop_data.groupby("Product").sum(numeric_only=True)["Total_Price"]
+sales_per_product.plot(
+    kind="pie",
+    autopct="%1.1f%%",
+    title="Sales per Product",
+)
+plt.ylabel("")
+plt.tight_layout()
+plt.show()
 
 
 

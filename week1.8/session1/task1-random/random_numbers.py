@@ -1,7 +1,12 @@
 import random
+from pathlib import Path
 
-# Get user to input how many random numbers they want
+count = int(input("How many random numbers do you want? "))
+numbers = [random.randint(1, 100) for _ in range(count)]
+output = Path(__file__).with_name("random.txt")
 
-# Generate this many random numbers
+with output.open("w") as outfile:
+    for number in numbers:
+        outfile.write(f"{number}\n")
 
-# Write the random numbers to a file named random.txt, one number per line
+print(f"Wrote {count} random numbers to {output.name}")
